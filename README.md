@@ -1,6 +1,8 @@
 # ClickUz Tester Web UI
 
-Modern web interface for testing [CLICK shop API](https://click.uz) scenarios. The project is inspired by the original CLI toolkit: <https://github.com/yetimdasturchi/clickuz-tester/tree/main>.
+Modern web interface for testing [CLICK shop API](https://click.uz) scenarios. The project is inspired by the original CLI toolkit: <https://github.com/yetimdasturchi/clickuz-tester>.
+
+![Application screenshot](./screenshot.png)
 
 ## Features
 - Tailwind‑styled React dashboard for prepare/complete scenario runs
