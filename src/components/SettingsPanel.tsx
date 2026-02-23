@@ -4,6 +4,7 @@ interface SettingsPanelProps {
   settings: TesterSettings;
   onChange: (key: keyof TesterSettings, value: string) => void;
   onLoadScenarios: () => void;
+  onOpenScenarioManager: () => void;
   onStart: () => void;
   onStop: () => void;
   loadingScenarios: boolean;
@@ -20,6 +21,7 @@ export function SettingsPanel({
   settings,
   onChange,
   onLoadScenarios,
+  onOpenScenarioManager,
   onStart,
   onStop,
   loadingScenarios,
@@ -58,13 +60,14 @@ export function SettingsPanel({
       </header>
 
       {!collapsed && (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <div className="flex flex-col gap-3">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
             <label className="flex flex-col gap-1 text-xs uppercase tracking-wide text-slate-400 md:col-span-2 xl:col-span-2">
               Prepare URL
               <input
                 className={inputClass}
                 type="url"
-                placeholder="https://domain.uz/prepare.php"
+                placeholder="http://localhost:90/api/v1/click/tours/prepare"
                 value={settings.prepareUrl}
                 onChange={handleChange('prepareUrl')}
               />
@@ -75,7 +78,7 @@ export function SettingsPanel({
               <input
                 className={inputClass}
                 type="url"
-                placeholder="https://domain.uz/complete.php"
+                placeholder="http://localhost:90/api/v1/click/tours/complete"
                 value={settings.completeUrl}
                 onChange={handleChange('completeUrl')}
               />
@@ -102,6 +105,9 @@ export function SettingsPanel({
               />
             </label>
 
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+
             <label className="flex flex-col gap-1 text-xs uppercase tracking-wide text-slate-400 md:col-span-1 xl:col-span-1">
               merchant_trans_id
               <input
@@ -109,6 +115,16 @@ export function SettingsPanel({
                 value={settings.merchantTransId}
                 onChange={handleChange('merchantTransId')}
                 placeholder="123"
+              />
+            </label>
+
+            <label className="flex flex-col gap-1 text-xs uppercase tracking-wide text-slate-400 md:col-span-1 xl:col-span-1">
+              amount (optional)
+              <input
+                className={inputClass}
+                value={settings.amount ?? ''}
+                onChange={handleChange('amount')}
+                placeholder="14316120"
               />
             </label>
 
@@ -142,6 +158,11 @@ export function SettingsPanel({
               />
             </label>
           </div>
+          <p className="text-xs text-slate-500">
+            В режиме `vite dev` любые cross-origin URL из настроек автоматически
+            отправляются через локальный proxy, чтобы обойти CORS в браузере.
+          </p>
+        </div>
       )}
 
       <footer
@@ -156,6 +177,15 @@ export function SettingsPanel({
           disabled={loadingScenarios || isRunning}
         >
           {loadingScenarios ? 'Загрузка…' : 'Загрузить сценарии'}
+        </button>
+
+        <button
+          type="button"
+          className="inline-flex items-center justify-center rounded-md border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-sky-500 hover:text-sky-300 disabled:cursor-not-allowed disabled:opacity-50"
+          onClick={onOpenScenarioManager}
+          disabled={isRunning}
+        >
+          Менеджер сценариев
         </button>
 
         <button

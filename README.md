@@ -6,10 +6,14 @@ Modern web interface for testing [CLICK shop API](https://click.uz) scenarios. T
 
 ## Features
 - Tailwind‑styled React dashboard for prepare/complete scenario runs
-- Scenario queue execution with realtime status, per-row manual run, and detailed request/response view
-- Persistent tester settings via `localStorage`
-- In-app log console with clear button
-- Works with the JSON template shipped in `public/template.json`
+- Scenario queue execution with realtime status, stop control, per-row manual run, and detailed request/response view
+- Scenario Manager modal to create/edit/delete scenarios directly in UI
+- Persistent tester settings and scenario list via `localStorage` (including initial auto-load from `public/template.json`)
+- Shared `amount` override in settings (optional), with per-scenario `post` values still supported
+- In-app log console with clear button and dev-time sync to `testing.log`
+- HTTP request audit trail (template/scenario requests + responses/errors) stored locally for diagnostics
+- Dynamic cross-origin proxy in dev mode (`/__tester/http-proxy`) to reduce browser CORS issues
+- Works with the JSON template shipped in `public/template.json`, including template value references between scenarios
 
 ## Getting Started
 
@@ -28,6 +32,8 @@ Open `http://localhost:5173` in your browser.
 - Fill in API endpoints, credentials, and identifiers in the settings form
 - Use the collapse toggle to hide the form once configured
 - Load scenarios from the default template or provide your own
+- Use `Менеджер сценариев` to update scenario descriptions, actions, expected codes, and raw `post` JSON
+- During `npm run dev`, any cross-origin API URL from settings is sent via local Vite middleware (`/__tester/http-proxy`) to avoid browser CORS restrictions
 
 ### 4. Execute scenarios
 - Click `Начать тест` to run the full queue sequentially

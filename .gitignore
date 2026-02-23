@@ -1,2 +1,4 @@
 .pnpm-store
 node_modules
+testing.log
+dist

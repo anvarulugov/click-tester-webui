@@ -63,6 +63,7 @@ export interface TesterSettings {
   serviceId: string;
   secretKey: string;
   merchantTransId: string;
+  amount: string;
   merchantUserId: string;
   clickPaydocId: string;
   presetMerchantPrepareId: string;
